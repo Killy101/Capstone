@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        body {
+          /*  width: 1536px;
+            height: 100px;*/
+            flex-shrink: 0;
+            background: #0B338A;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        }
+        .btn {
+            border-radius: 40px;
+            background: #0077B6;
+            box-shadow: 20px 20px 10px 0px rgba(0, 0, 0, 0.25);
+        }
+    </style>
+</head>
+<body>
+    @* added the search btn and the textbox*@
+    <div>
+        <center>
+            <table>
+                <tr>
+                    <td>
+                        <div style="margin-top:50px">
+                            <h1 style="color: white;font-family: Rampart One;font-size: 100px;font-style: normal;font-weight: 700;line-height: normal;letter-spacing: 4px;">C-Site</h1>
+                            <h1 style="color: white;font-family: Epilogue;font-size: 24px;font-style: normal;font-weight: 400;line-height: normal;letter-spacing: 1.2px;">Discover C-site : Your Ultimate Camping Sanctuary</h1>
+                       
+                            <br />
+                            <center>
+                                <button onclick="location.href='@Url.Action("Login")'" class="btn btn-primary btn-md" style="width: 210px; height: 45px; align-items:center; ">Getting Started</button>
+                            </center>
+                        </div>
+                    </td>
+                    <td style="margin-top: 50px;">
+                        
+                        <img class="img-responsive" src="~/Images/undraw_Outdoor_adventure_re_j3b7 1.png"  style="width: 750px; height: 530px; margin-left: 100px;" />
+                    </td>
+                </tr>
+            </table>
+        </center>
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <br />
+    <br />
+</body>
+
+</html>
+
+
+
