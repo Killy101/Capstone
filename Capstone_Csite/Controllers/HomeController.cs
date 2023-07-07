@@ -232,16 +232,6 @@ namespace Capstone_Csite.Controllers
         }
 
         /*--------------------------------------------------SAMPLE -----------------------------------------------------*/
-        public ActionResult Samp()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Samp(ImageFile objImage, ImageFile Models)
-        {
-            return View();
-        }
 
         /*--------------------------------------------------ADMIN -----------------------------------------------------*/
 
