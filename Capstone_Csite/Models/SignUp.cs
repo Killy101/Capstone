@@ -9,6 +9,9 @@ namespace Capstone_Csite.Models
 {
     public class SignUp
     {
+        [Key]
+        public int id { get; set; }
+
         [Required]
         [Display (Name ="First Name")]
         [StringLength(20,ErrorMessage ="First Name not be exceed 20 Letters")]
@@ -25,7 +28,7 @@ namespace Capstone_Csite.Models
        
         [Display(Name = "Phone Number")]
         [Required(ErrorMessage = "You must provide a phone number")]
-        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Entered phone format is not valid.")]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{5})$", ErrorMessage = "Entered phone format is not valid.")]
         public string phone { get; set; }
 
         [Required]
@@ -39,16 +42,19 @@ namespace Capstone_Csite.Models
         public string email { get; set; }
 
        
-        [Required(ErrorMessage = "Must Enter Username")]
+        [Required(ErrorMessage = "Must Enter Username"), MinLength(5)]
         [StringLength(20, ErrorMessage = "Username not be exceed 20 Letters")]
         [Display(Name = "Username")]
         public string username { get; set; }
 
-        [Required(ErrorMessage = "Required Password")]
+        [Required(ErrorMessage = "Required Password"), MinLength(5)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string password { get; set; }
 
+        [Display(Name = "Confirm Password")]
+        [Compare("password"), DataType(DataType.Password)]
+        public string con_password { get; set; }
         public string usertype { get; set; }
 
     }

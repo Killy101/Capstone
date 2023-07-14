@@ -14,7 +14,7 @@ namespace Capstone_Csite.Controllers
 {
     public class HomeController : Controller
     {
-     
+        private MyDbContext db = new MyDbContext();
         string connectionString = "server=localhost;user id=root;database=databasecsite";
 
         public ActionResult Index()
@@ -35,6 +35,8 @@ namespace Capstone_Csite.Controllers
 
             return View();
         }
+
+        [HttpGet]
         public ActionResult OwnerRegister()
         {
             return View();
@@ -43,12 +45,23 @@ namespace Capstone_Csite.Controllers
         [HttpPost]
         public ActionResult OwnerRegister(SignUp Models)
         {
-
+            bool UserExist = db.SignUp.Any(x => x.username == Models.username);
+            if (UserExist)
+            {
+                ViewBag.UserNameMessage = " this Username is alreadry exist";
+                return View();
+            }
+            bool EmailExist = db.SignUp.Any(y => y.email == Models.email);
+            if (UserExist)
+            {
+                ViewBag.UserNameMessage = " this Email is alreadry exist";
+                return View();
+            }
             using (var connection = new MySqlConnection(connectionString))
             {
                 string usertype = "Owner";
-                string query = "INSERT INTO `users`(`firstName`, `lastName`, `phone`, `age`, `email`, `username`, `password`, `usertype`) " +
-                "VALUES (@firstname, @lastname, @phone, @age, @email, @username, @password, @usertype)";
+                string query = "INSERT INTO `users`(`firstName`, `lastName`, `phone`, `age`, `email`, `username`, `password`,`confirm_password`, `usertype`) " +
+                "VALUES (@firstname, @lastname, @phone, @age, @email, @username, @password,@con_password, @usertype)";
                 var command = new MySqlCommand(query, connection);
 
                 command.Parameters.AddWithValue("@firstname", Models.fName);
@@ -58,6 +71,7 @@ namespace Capstone_Csite.Controllers
                 command.Parameters.AddWithValue("@email", Models.email);
                 command.Parameters.AddWithValue("@username", Models.username);
                 command.Parameters.AddWithValue("@password", Models.password);
+                command.Parameters.AddWithValue("@con_password", Models.con_password);
                 command.Parameters.AddWithValue("@usertype", usertype);
 
                 connection.Open();
@@ -268,7 +282,7 @@ namespace Capstone_Csite.Controllers
                                     //Session["email"] = userType;
 
                                     // You can create a session or authentication token here to maintain the user's login state
-                                    return RedirectToAction("Index", "Home");
+                                    return RedirectToAction("AdminDashboard", "Home");
                                 }
                             }
                         }
@@ -279,7 +293,13 @@ namespace Capstone_Csite.Controllers
             ModelState.AddModelError(string.Empty, "Invalid username or password.");
             return View(models);
         }
-    
+
+        public ActionResult AdminDashboard()
+        {
+            return View();
+        }
+
+
     }
 }
 
